@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace = "fragments/common :: head('게시판')">
+<head th:replace="fragments/common :: head('게시판')">
 
 
 </head>
@@ -12,7 +12,31 @@
 
 	<div class="container">
 		<h2>게시판</h2>
-
+		<!-- #lists >> 사전에 정의된 유틸리티, size 안에 addAttribute에서 키로 설정된 boards를 가져와 총건수를 조회 -->
+		<div>
+			총 건수 : <span th:text="${#lists.size(boards)}"></span>
+		</div>
+		<!-- 게시판 테이블 부분 -->
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">번호</th>
+					<th scope="col">제목</th>
+					<th scope="col">작성자</th>
+					
+				</tr>
+			</thead>
+			<tbody><!-- 타임리프 문법으로 반복문사용 -->
+				<tr th:each = "board : ${boards}">
+					<th th:text = "${board.id}">1</th>
+					<td><a th:text = "${board.title}" th:href = "@{/board/form(id=${board.id})}"></a></td>
+					<td>임의 지정한 작성자이름</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class= "text-right">
+			<a type ="button" class = "btn btn-primary" th:href="@{/board/form}">글 작성</a>
+		</div>
 	</div>
 
 
