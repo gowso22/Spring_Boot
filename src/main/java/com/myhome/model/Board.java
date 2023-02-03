@@ -13,7 +13,7 @@ import lombok.Data;
 @Entity
 @Data
 public class Board {
-	//PK 설정
+	//PK 설정 
 	@Id
 	//auto increment 선언
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
