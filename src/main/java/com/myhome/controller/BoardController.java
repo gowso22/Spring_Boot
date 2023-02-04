@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.AuthenticatedPrincipal;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.myhome.model.Board;
 import com.myhome.repository.BoardRepository;
+import com.myhome.service.BoardService;
 import com.myhome.validator.BoardValidator;
 
 @Controller
@@ -27,6 +30,9 @@ public class BoardController {
 
 	@Autowired // 의존성 주입
 	private BoardRepository boardRepository;
+	
+	@Autowired // 의존성 주입
+	private BoardService boardService;
 	@Autowired
 	private BoardValidator boardValidator;
 
@@ -70,16 +76,21 @@ public class BoardController {
 	}
 
 	@PostMapping("/form")
-	public String greetingSubmit(@Valid Board board, BindingResult bindingResult) {
+	public String postForm(@Valid Board board, BindingResult bindingResult, Authentication authentication) {
 
 		boardValidator.validate(board, bindingResult); // 따로 유효성검사 클래스를 생성하여 유효성검사 구현
 
 		if (bindingResult.hasErrors()) {
 			return "board/form";
 		} // 스프링 부트 기능으로 유효성검사 구현
-
+		
+		// 인증된 username을 가져옴
+		String username = authentication.getName();
+		
 		// 게시판글 작성한 것이 board에 save(insert 혹은 update)됨
-		boardRepository.save(board);
+		boardService.save(username, board);
+		//boardRepository.save(board);
+		
 		// redirect:board/list >> list페이지 재조회
 		return "redirect:/board/list";
 

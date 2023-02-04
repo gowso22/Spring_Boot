@@ -42,7 +42,7 @@
 					<th th:text="${board.id}">1</th>
 					<td><a th:text="${board.title}"
 						th:href="@{/board/form(id=${board.id})}"></a></td>
-					<td>임의 지정한 작성자이름</td>
+					<td th:text = "${board.user.username}">작성자이름</td>
 				</tr>
 			</tbody>
 		</table>

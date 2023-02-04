@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-
-<html xmlns:th="http://www.thymeleaf.org">
+<!-- thymeleaf 문법 사용 th, sec -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment = "head(title)">
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -25,7 +25,7 @@
 
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top"
 		th:fragment="menu(menu)">
-		<a class="navbar-brand" href="#">Spring Boot</a>
+		<a class="navbar-brand" th:href = "@{/}">Spring Boot</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarsExampleDefault"
 			aria-controls="navbarsExampleDefault" aria-expanded="false"
@@ -42,6 +42,16 @@
 						<span class="sr-only" th:if = "${menu} == 'board'">(current)</span>
 				</a></li>		
 			</ul>	
+			
+				<!-- !isAuthenticated() >> 로그인이 하지않은 사용자만 볼 수 있게 설정 >> 비로그인시 보여지는 영역 -->
+				<a class = "btn btn-secondary my-2 my-sm-0 mr-2" th:href = "@{/account/login}" sec:authorize="!isAuthenticated()"> 로그인</a>
+				<a class = "btn btn-secondary my-2 my-sm-0" th:href = "@{/account/register}" sec:authorize="!isAuthenticated()"> 회원가입</a>
+				<!-- isAuthenticated() >> 로그인 사용자만 볼 수 있게 설정 >> 로그인시 보여지는 영역 -->
+			<form class = "form-inline my-2 my-lg-0" th:action="@{/logout}" method = "post" sec:authorize="isAuthenticated()">
+			<span class = "text-white mr-2"  sec:authentication="name" >사용자</span>
+			<span class = "text-white my-2 mr-3" sec:authentication="principal.authorities">권한</span>
+				<button class = "btn btn-secondary my-2 my-sm-0" type = "submit"> 로그아웃</button>
+			</form>
 
 		</div>
 	</nav>
