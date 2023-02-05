@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 
@@ -30,5 +32,6 @@ public class Board {
 	
 	@ManyToOne //하나의 유저는 게시판에 여러게의 글(데이터)를 올릴 수 있다
 	@JoinColumn(name = "user_id", referencedColumnName = "id"/*생략가능*/)
+
 	private User user;
 }

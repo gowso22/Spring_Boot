@@ -3,13 +3,16 @@ package com.myhome.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -36,5 +39,15 @@ public class User {
 			inverseJoinColumns = @JoinColumn(name = "role_id"))
 
 	private List<Role> roles = new ArrayList<>();
+	
+	//@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true) // mappedBy >> 양방향 매핑 >> 단방향 매핑(joinTable) 시 Many 쪽에서 설정
+	
+	
+	// FetchType.EAGER >> USER 정보 조회시 BOARD가 같이 조회
+	// FetchType.LAZY >>  BOARD 사용시에만 BOARD 조회
+	// default >> FetchType.EAGER >> @OneToOne, @ManyToOne
+	// default >> FetchType.LAZY >>@OneToMany, @ManyToMany
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private List<Board> boards = new ArrayList<>();
 
 }

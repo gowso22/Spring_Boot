@@ -3,6 +3,7 @@ package com.myhome.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,10 +29,10 @@ class BoardAPIController {
 	// Aggregate root
 	// tag::get-aggregate-root[]
 	@GetMapping("/boards")
-	
+
 	List<Board> all(@RequestParam(required = false, defaultValue = "") String title,
-					@RequestParam(required = false, defaultValue = "") String content) {
-		
+			@RequestParam(required = false, defaultValue = "") String content) {
+
 		if (StringUtils.isEmpty(title) && StringUtils.isEmpty(content)) {
 			return repository.findAll();
 		} else {
@@ -66,6 +67,7 @@ class BoardAPIController {
 		});
 	}
 
+	@Secured("ROLE_ADMIN") // ADMIN 사용자만 해당 메서드 호출 >> MethodSecurityConfig 페이지에서 참조
 	@DeleteMapping("/boards/{id}")
 	void deleteboard(@PathVariable Long id) {
 		repository.deleteById(id);

@@ -10,6 +10,8 @@ import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 
@@ -24,7 +26,11 @@ public class Role {
 	
 	private String name;
 	
-	@ManyToMany(mappedBy = "roles")
+	@ManyToMany(mappedBy = "roles") 
+	// @JsonIgnore >> api 테스트 시 user와 role 서로가 서로를 참조하므로 
+	// user안에 role이있고  role안에 user가 있게 되어서 계속해서 참조 되는 것을 방지하기 위함 
+
+	
 	private List<User> users;
 	
 }
