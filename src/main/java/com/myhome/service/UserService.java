@@ -27,7 +27,7 @@ public class UserService {
 		
 		// 유저 회원가입 시 role 설정
 		Role role = new Role();
-		role.setId(2); // 유저의 role 테이블에 id가 1번인 권한(ROLE_USER)을 하드코딩으로 설정
+		role.setId(1); // 유저의 role 테이블에 id가 1번인 권한(ROLE_USER)을 하드코딩으로 설정
 		user.getRoles().add(role); // 유저의 role 추가
 		
 		return userRepository.save(user);
