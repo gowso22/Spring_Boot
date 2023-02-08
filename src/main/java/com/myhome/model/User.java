@@ -47,7 +47,7 @@ public class User {
 	// FetchType.LAZY >>  BOARD 사용시에만 BOARD 조회
 	// default >> FetchType.EAGER >> @OneToOne, @ManyToOne
 	// default >> FetchType.LAZY >>@OneToMany, @ManyToMany
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Board> boards = new ArrayList<>();
 
 }

@@ -33,5 +33,15 @@ public class UserService {
 		return userRepository.save(user);
 
 	}
+	
+	public void update(String username,User user) {
+		
+		
+	}
+	public void deleteById(long id) {
+		userRepository.deleteById(id);
+	}
+	
+	
 
 }
