@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
+import com.myhome.dto.UserDTO;
 import com.myhome.model.User;
 import com.myhome.repository.UserRepository;
 import com.myhome.service.UserService;
@@ -56,12 +59,12 @@ public class AccountController {
 		return "account/edit";
 	}
 
-	@PostMapping("/edit")
-	public String edit(@Valid User user, Authentication authentication) {
-		String username = authentication.getName();
+	@PostMapping("/edit/{id}")
+	public String edit(@PathVariable long id,User user) {
 		
-		userService.update(username, user);
-
+		
+		userService.update(id, user);
+		
 		return "redirect:/";
 	}
 
@@ -69,8 +72,11 @@ public class AccountController {
 	public String delete(@PathVariable long id) {
 
 		userService.deleteById(id);
+		
+		// 삭제 후 로그인 정보 clear
+		SecurityContextHolder.clearContext();
 
-		return "redirect:/logout";
+		return "redirect:/";
 	}
 
 }

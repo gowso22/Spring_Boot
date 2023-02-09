@@ -1,9 +1,12 @@
 package com.myhome.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.myhome.dto.UserDTO;
 import com.myhome.model.Role;
 import com.myhome.model.User;
 import com.myhome.repository.UserRepository;
@@ -34,10 +37,22 @@ public class UserService {
 
 	}
 	
-	public void update(String username,User user) {
+	public void update(long id,User user) {
 		
+		Optional<User> u = userRepository.findById(id);
+		
+		if(u.isPresent()) {
+			u.get().setId(user.getId());
+			u.get().setUsername(user.getUsername());
+			String encodedPassword = passwordEncoder.encode(user.getPassword());
+			u.get().setPassword(encodedPassword);
+			u.get().setEnabled(true);
+			
+			userRepository.save(u.get());
+		}
 		
 	}
+	
 	public void deleteById(long id) {
 		userRepository.deleteById(id);
 	}

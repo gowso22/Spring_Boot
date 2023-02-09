@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.myhome.dto.UserDTO;
+
 import lombok.Data;
 
 @Entity
@@ -27,9 +30,28 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	@Column(unique = true)
 	private String username;
+	
 	private String password;
 	private boolean enabled;
+	
+	
+	public static User toUpdateUser(UserDTO userDTO) {
+		User user = new User();
+		
+		user.setId(userDTO.getId());
+		user.setUsername(userDTO.getUsername());
+		user.setPassword(userDTO.getPassword());
+		user.setEnabled(true);
+		
+		return user;
+	}
+	
+	
+	
+	
+	
 
 	// join을 위해 연관관계 매핑
 	@ManyToMany

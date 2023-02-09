@@ -57,23 +57,28 @@ public class BoardController {
 		return "board/list";
 	}
 
-	@GetMapping("/form")
+	@GetMapping("/form") // 글 조회할 id가 있다면,
 	// @RequestParam(required = false) Long id >> id 파라미터값을 가져옴(required >> 새글을 작성할
 	// 땐 파라미터가 필요 없으므로 false값을 줌)
 	public String form(Model model, @RequestParam(required = false) Long id) {
 
-		if (id == null) { // 새글 이라면
-			// new Board
-			model.addAttribute("board", new Board());
-		} else { // 글 조회할 id가 있다면, 기존의 board 조회 후 board 값에 저장, 그 외의 경우도 포함
 			// findById(id) >> id 변수값이 select문의 where 절에 들어간다고 생각
 			// orElse(null) >> 조회된 값이 없다면 null로 반환
 			Board board = boardRepository.findById(id).orElse(null);
 			model.addAttribute("board", board);
-		}
+		
 
 		return "board/form";
 	}
+	
+	@GetMapping("/write") // 새글 작성
+	public String write(Model model) {
+		
+		model.addAttribute("board", new Board());
+		
+		return "board/write";
+	}
+	
 
 	@PostMapping("/form")
 	public String postForm(@Valid Board board, BindingResult bindingResult, Authentication authentication) {

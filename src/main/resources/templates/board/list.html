@@ -17,6 +17,7 @@
 			<!-- 타임리프에선 지정한 함수를 꺼낼 때 get~ 사용하지 않음 -->
 			총 건수 : <span th:text="${boards.totalElements}"></span>
 		</div>
+		<!-- 검색 form -->
 		<form class="form-inline d-flex justify-content-end" method = "GET" th:action = "@{/board/list}">
 			
 			<div class="form-group mx-sm-3 mb-2">
@@ -37,11 +38,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				<!-- 타임리프 문법으로 반복문사용 -->
+				<!-- 타임리프 문법으로 반복문사용  -->
 				<tr th:each="board : ${boards}">
 					<th th:text="${board.id}">1</th>
 					<td><a th:text="${board.title}"
-						th:href="@{/board/form(id=${board.id})}"></a></td>
+						 th:href="@{/board/form(id=${board.id})}" ></a></td>
 					<td th:text = "${board.user.username}">작성자이름</td>
 				</tr>
 			</tbody>
@@ -70,8 +71,9 @@
 				</li>
 			</ul>
 		</nav>
+		<!-- 글 작성은 회원가입한 유저만 사용가능하도록 설정 -->
 		<div class="text-right">
-			<a type="button" class="btn btn-primary" th:href="@{/board/form}">글
+			<a type="button" class="btn btn-primary" th:href="@{/board/write}" sec:authorize="hasRole('ROLE_USER')">글
 				작성</a>
 		</div>
 	</div>

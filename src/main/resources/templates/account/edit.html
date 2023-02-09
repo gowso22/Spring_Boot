@@ -23,7 +23,7 @@
 
 
 	<!-- th:action >> csrf 토큰 전송을 위해서 -->
-	<form class="form-signin" th:action="@{/account/edit}"
+	<form class="form-signin" th:action="@{|edit/*{id}|}"
 		method="post" th:object="${user}">
 		<img class="mb-4"
 			src="https://getbootstrap.com/docs/4.5/assets/brand/bootstrap-solid.svg"

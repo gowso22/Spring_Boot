@@ -67,7 +67,7 @@ class BoardAPIController {
 		});
 	}
 
-	@Secured("ROLE_ADMIN") // ADMIN 사용자만 해당 메서드 호출 >> MethodSecurityConfig 페이지에서 참조
+	//@Secured("ROLE_ADMIN") // ADMIN 사용자만 해당 메서드 호출 >> MethodSecurityConfig 페이지에서 참조
 	@DeleteMapping("/boards/{id}")
 	void deleteboard(@PathVariable Long id) {
 		repository.deleteById(id);

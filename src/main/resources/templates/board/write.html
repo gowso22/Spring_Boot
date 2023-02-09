@@ -20,17 +20,13 @@
 			method="post">
 			<input type="hidden" th:field="*{id}">
 			<div class="form-group">
-			<!-- 제목과 글 내용은 해당 글 작성자에게만 수정 권한이 주어지도록 하며 그 외의 사용자는 readonly 속성을 줘 글읽기만 가능하도록 설정 -->
+		
 				<label for="title">제목</label> 
 					<input type="text"
 					class="form-control" id="title"
-					th:classappend="${#fields.hasErrors('title')} ? 'is-invalid'"  th:if = "${#authentication.name} == ${board.user.username}"
+					th:classappend="${#fields.hasErrors('title')} ? 'is-invalid'"  
 					th:field="*{title}">
-					<input type="text"
-					class="form-control" id="title"
-					th:classappend="${#fields.hasErrors('title')} ? 'is-invalid'"  th:if = "${#authentication.name} != ${board.user.username}" readonly="readonly"
-					th:field="*{title}">
-
+					
 				<!-- 유효성검사 메세지 -->
 				<div id="validationServer03Feedback" class="invalid-feedback"
 					th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
@@ -39,29 +35,17 @@
 			<div class="form-group">
 				<label for="content">글 내용</label>
 				<textarea class="form-control" id="content" rows="3"
-					th:classappend="${#fields.hasErrors('content')} ? 'is-invalid'" th:if = "${#authentication.name} == ${board.user.username}"
+					th:classappend="${#fields.hasErrors('content')} ? 'is-invalid'"
 					th:field="*{content}"></textarea>
-				<textarea class="form-control" id="content" rows="3"
-					th:classappend="${#fields.hasErrors('content')} ? 'is-invalid'" th:if = "${#authentication.name} != ${board.user.username}" readonly="readonly"
-					th:field="*{content}"></textarea>
-
 				<!-- 유효성검사 메세지 -->
 				<div id="validationServer03Feedback" class="invalid-feedback"
 					th:if="${#fields.hasErrors('content')}" th:errors="*{content}">
 					내용에러메세지</div>
 			</div>
 			<div class="text-right">
-				<span th:text = "${#authentication.name}"></span>
-				<span th:text = "${board.user.username}"></span>
+				
 				<a class="btn btn-primary" th:href="@{/board/list}">취소</a>
-				<button type="submit" class="btn btn-primary" th:if = "${#authentication.name} == ${board.user.username}">글 수정</button>
-				<!-- 글 삭제 기능은 관리자와 해당 글 작성자에게만 보이도록 설정 -->
-				<button type="button" class="btn btn-danger"
-					sec:authorize="hasRole('ROLE_ADMIN')"
-					th:onclick="|deleteBoard(*{id})|">삭제</button>
-				<button type="button" class="btn btn-danger"
-					th:if = "${#authentication.name} == ${board.user.username}"
-					th:onclick="|deleteBoard(*{id})|">삭제</button>
+				<button type="submit" class="btn btn-primary">글 쓰기</button>
 			</div>
 		</form>
 	</div>
