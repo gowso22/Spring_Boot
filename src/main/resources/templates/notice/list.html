@@ -1,0 +1,84 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common :: head('공지사항')">
+
+
+</head>
+<body>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top"
+		th:replace="fragments/common :: menu('notice') "></nav>
+
+
+
+	<div class="container">
+		<h2>공지사항</h2>
+		<!-- #lists >> 사전에 정의된 유틸리티, size 안에 addAttribute에서 키로 설정된 boards를 가져와 총건수를 조회 -->
+		<div>
+			<!-- 타임리프에선 지정한 함수를 꺼낼 때 get~ 사용하지 않음 -->
+			<!-- 총 건수 : <span th:text="${notices.totalElements}"></span> -->
+		</div>
+		<!-- 검색 form -->
+		<!-- <form class="form-inline d-flex justify-content-end" method = "GET" th:action = "@{/board/list}">
+			
+			<div class="form-group mx-sm-3 mb-2">
+				<label for="searchText" class="sr-only">검색</label> 
+				<input type="text" class="form-control"
+				 id="searchText" name = "searchText" th:value = "${param.searchText}">
+			</div>
+			<button type="submit" class="btn btn-light mb-2">검색</button>
+		</form> -->
+		<!-- 게시판 테이블 부분 -->
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">번호</th>
+					<th scope="col">제목</th>
+					<th scope="col">작성자</th>
+					<th scope="col">작성일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- 타임리프 문법으로 반복문사용  -->
+				<tr th:each="notice : ${notices}">
+					<th th:text="${notice.id}">1</th>
+					<td><a th:text="${notice.title}" th:href="@{/notice/form(id=${notice.id})}"></a></td>
+					<td th:text = "${notice.user.username}">작성자이름</td>
+					<td th:text="${notice.regdate}">작성일</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- 페이징 처리 부분 -->
+		<!-- <nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+				previous 버튼
+				<li class="page-item"
+					th:classappend="${1 == boards.pageable.pageNumber + 1} ? 'disabled'">
+					<a class="page-link" href="#"
+					th:href="@{/board/list/(page=${boards.pageable.pageNumber - 1}, searchText = ${param.searchText})}"
+					tabindex="-1" aria-disabled="true">Previous</a>
+				</li>
+				pageNumber 버튼
+				<li class="page-item"
+					th:classappend="${i == boards.pageable.pageNumber + 1} ? 'disabled'"
+					th:each="i : ${#numbers.sequence(startPage, endPage)}"><a
+					class="page-link" href="#" th:href="@{/board/list/(page=${i-1}, searchText = ${param.searchText})}"  
+					th:text="${i}">1</a></li>
+				next 버튼
+				<li class="page-item"
+					th:classappend="${boards.totalPages == boards.pageable.pageNumber + 1} ? 'disabled'">
+					<a class="page-link" href="#"
+					th:href="@{/board/list/(page=${boards.pageable.pageNumber + 1}, searchText = ${param.searchText})}">Next</a>
+				</li>
+			</ul>
+		</nav> -->
+		<!-- 글 작성은 회원가입한 유저만 사용가능하도록 설정 -->
+		<div class="text-right">
+			<a type="button" class="btn btn-primary" th:href="@{/notice/write}" sec:authorize="hasRole('ROLE_ADMIN')"> 공지사항 작성</a>
+		</div>
+	</div>
+
+
+
+	<footer th:replace="fragments/common :: footer"></footer>
+</body>
+</html>

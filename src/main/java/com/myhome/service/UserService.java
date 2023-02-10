@@ -37,6 +37,7 @@ public class UserService {
 
 	}
 	
+	// 회원정보 수정시 
 	public void update(long id,User user) {
 		
 		Optional<User> u = userRepository.findById(id);

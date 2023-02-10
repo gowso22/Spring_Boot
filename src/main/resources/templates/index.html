@@ -53,7 +53,7 @@
 		<!-- 공지사항 영역 -->
 		<h3>BOOK SHOP 공지사항</h3>
 		<p class="text-right">
-			<a class="text-decoration-none grey" href="#">더보기</a>
+			<a class="text-decoration-none grey" th:href = "@{/notice/list}">더보기</a>
 		</p>
 		<hr>
 		<table class="table">
@@ -66,11 +66,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="board : ${boards}">
-					<th th:text="${board.id}">1</th>
-					<td th:text="${board.title}"></td>
-					<td th:text="${board.user.username}">작성자이름</td>
-					<td>@mdo</td>
+				<tr th:each="notice : ${notices}">
+					<th th:text="${notice.id}">1</th>
+					<td th:text="${notice.title}"></td>
+					<td th:text="${notice.user.username}">작성자이름</td>
+					<td th:text="${notice.regdate}">작성일자</td>
 				</tr>
 			</tbody>
 		</table>
