@@ -43,7 +43,10 @@
 				</a></li>
 				<li class="nav-item" th:classappend = "${menu} == 'board' ? 'active'"><a class="nav-link" href="#" th:href = "@{/board/list}">게시판
 						<span class="sr-only" th:if = "${menu} == 'board'">(current)</span>
-				</a></li>		
+				</a></li>	
+				<li class="nav-item" th:classappend = "${menu} == 'itemForm' ? 'active'" sec:authorize="hasRole('ROLE_ADMIN')"><a class="nav-link" href="#" th:href = "@{/item/itemForm}">상품 등록
+						<span class="sr-only" th:if = "${menu} == 'itemForm'">(current)</span>
+				</a></li>	
 			</ul>	
 			
 				<!-- !isAuthenticated() >> 로그인이 하지않은 사용자만 볼 수 있게 설정 >> 비로그인시 보여지는 영역 -->
