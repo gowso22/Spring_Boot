@@ -1,6 +1,9 @@
 package com.myhome.service;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.myhome.dto.ItemFormDTO;
+import com.myhome.dto.ItemImgDTO;
 import com.myhome.dto.ItemSearchDTO;
 import com.myhome.dto.MainItemDTO;
 import com.myhome.model.Item;
@@ -17,7 +21,7 @@ import com.myhome.model.ItemImg;
 import com.myhome.repository.ItemImgRepository;
 import com.myhome.repository.ItemRepository;
 
-import lombok.RequiredArgsConstructor;
+
 
 @Service
 @Transactional
@@ -56,5 +60,23 @@ public class ItemService { // 상품 등록
 	public Page<MainItemDTO> getMainItemPage(ItemSearchDTO itemSearchDTO, Pageable pageable){
 		return itemRepository.getMainItemPage(itemSearchDTO, pageable);
 	}
+	
+	 @Transactional(readOnly = true) // 트랜잭션을 읽기 전용 설정 : 더티체킹() 수행하지 않아 성능을 향상을 시킴
+	    public ItemFormDTO getItemDtl(Long itemId){ // 상품 상세페이지에서 해당 상품 표시해줄 메서드
+	        List<ItemImg> itemImgList = itemImgRepository.findByItemIdOrderByIdAsc(itemId);
+	        
+	        List<ItemImgDTO> itemImgDTOList = new ArrayList<>();
+	        
+	        for (ItemImg itemImg : itemImgList) {
+	            ItemImgDTO itemImgDTO = ItemImgDTO.of(itemImg);
+	            itemImgDTOList.add(itemImgDTO);
+	        }
+
+	        Item item = itemRepository.findById(itemId)
+	                .orElseThrow(EntityNotFoundException::new);
+	        ItemFormDTO itemFormDTO = ItemFormDTO.of(item);
+	        itemFormDTO.setItemImgDTOList(itemImgDTOList);
+	        return itemFormDTO;
+	    }
 
 }

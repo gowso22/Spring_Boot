@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception{
 		http
 		.authorizeHttpRequests()
-			.antMatchers("/", "/account/register","/board/**","/notice/**" ,"/css/**").permitAll() // 누구나 접근할 수 있는 페이지
+			.antMatchers("/", "/account/register","/board/**","/notice/**", "/item/**", "/images/**" ,"/css/**").permitAll() // 누구나 접근할 수 있는 페이지
 			.anyRequest().authenticated() // 그 외 페이지는 인증 되어야 함.
 			.and()
 		.formLogin()
