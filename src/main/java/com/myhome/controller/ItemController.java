@@ -71,7 +71,7 @@ public class ItemController {
 		
 		ItemFormDTO itemFormDTO = itemService.getItemDtl(itemId); 
 		// itemService에서 가져온 상품상세정보 담은 메서드를 itemFormDTO 객체에 담아 전달
-		model.addAttribute("itemFormDTO", itemFormDTO);
+		model.addAttribute("item", itemFormDTO);
 		
 		
 		return "item/itemDetail";
