@@ -26,7 +26,7 @@ public class Item {
 	
 	@Id
 	@Column(name = "item_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; // 상품고유번호
 	
 	@Column(nullable = false, length = 50)
@@ -42,8 +42,11 @@ public class Item {
     @Column(nullable = false)
     private String itemDetail; //상품 상세 설명
 
+    private String regDate;
+    
     @Enumerated(EnumType.STRING)
     private ItemSellStatus itemSellStatus;
+    
 	
 	
 }

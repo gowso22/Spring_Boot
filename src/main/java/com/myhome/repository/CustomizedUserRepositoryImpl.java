@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.myhome.model.QUser;
+// import com.myhome.model.QUser;
 import com.myhome.model.User;
 import com.querydsl.jpa.impl.JPAQuery;
 
@@ -21,19 +21,19 @@ public class CustomizedUserRepositoryImpl implements CustomizedUserRepository{
 	JdbcTemplate jdbcTemplate;
 	
 	
-	@Override
-	public List<User> findByUsernameCustom(String username) {
-		QUser qUser = QUser.user;
-		
-		JPAQuery<?> query = new JPAQuery<Void>(em);
-		
-		// fetch >> list type
-		List<User> users = query.select(qUser).from(qUser).where(qUser.username.contains(username)).fetch();
-		
-		return users;
-		
-		
-	}
+//	@Override
+//	public List<User> findByUsernameCustom(String username) {
+//		QUser qUser = QUser.user;
+//		
+//		JPAQuery<?> query = new JPAQuery<Void>(em);
+//		
+//		// fetch >> list type
+//		List<User> users = query.select(qUser).from(qUser).where(qUser.username.contains(username)).fetch();
+//		
+//		return users;
+//		
+//		
+//	}
 
 	// jdbctemplate 사용
 	@Override
@@ -46,6 +46,13 @@ public class CustomizedUserRepositoryImpl implements CustomizedUserRepository{
 				new Object[]{"%" + username + "%"}, // ? 파라미터 값 설정
 				new BeanPropertyRowMapper(User.class));
 		return users;
+	}
+
+
+	@Override
+	public List<User> findByUsernameCustom(String username) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

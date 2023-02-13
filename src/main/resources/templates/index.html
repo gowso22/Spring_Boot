@@ -29,14 +29,19 @@
 			</ol>
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS75smVm3a9efCK5Kia4zM2r72bdp0v2Lpzwg&usqp=CAU" 
-					class="d-block w-100" alt="첫번째">
+					<img
+						src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS75smVm3a9efCK5Kia4zM2r72bdp0v2Lpzwg&usqp=CAU"
+						class="d-block w-100" alt="첫번째">
 				</div>
 				<div class="carousel-item">
-					<img src="https://png.pngtree.com/background/20211216/original/pngtree-bookstore-reading-books-reading-knowledge-photography-map-with-pictures-picture-image_1513104.jpg" class="d-block w-100" alt="두번째">
+					<img
+						src="https://png.pngtree.com/background/20211216/original/pngtree-bookstore-reading-books-reading-knowledge-photography-map-with-pictures-picture-image_1513104.jpg"
+						class="d-block w-100" alt="두번째">
 				</div>
 				<div class="carousel-item">
-					<img src="https://png.pngtree.com/background/20210709/original/pngtree-blue-books-turn-on-background-picture-image_914965.jpg" class="d-block w-100" alt="세번째">
+					<img
+						src="https://png.pngtree.com/background/20210709/original/pngtree-blue-books-turn-on-background-picture-image_914965.jpg"
+						class="d-block w-100" alt="세번째">
 				</div>
 			</div>
 			<a class="carousel-control-prev" href="#carouselExampleIndicators"
@@ -53,7 +58,7 @@
 		<!-- 공지사항 영역 -->
 		<h3>BOOK SHOP 공지사항</h3>
 		<p class="text-right">
-			<a class="text-decoration-none grey" th:href = "@{/notice/list}">더보기</a>
+			<a class="text-decoration-none grey" th:href="@{/notice/list}">더보기</a>
 		</p>
 		<hr>
 		<table class="table">
@@ -77,7 +82,15 @@
 
 		<!-- 상품 영역 -->
 		<h3>BOOK</h3>
-		<form class="form-inline d-flex justify-content-end" method="GET"
+		<form class="form-inline d-flex justify-content-end" th:action="@{/}" method="get">
+			<input name="searchQuery" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+			<button type="submit" class="btn btn-light mb-2">검색</button>
+		</form>
+		<input type="hidden" name="searchQuery" th:value="${itemSearchDTO.searchQuery}">
+		<div th:if="${not #strings.isEmpty(itemSearchDTO.searchQuery)}" class="center">
+			<p class="h3 font-weight-bold" th:text="${itemSearchDTO.searchQuery} + ' 검색 결과'"></p>
+		</div>
+		<!-- <form class="form-inline " method="GET"
 			th:action="@{/board/list}">
 			<div class="form-group mx-sm-3 mb-2">
 				<label for="searchText" class="sr-only">검색</label> 
@@ -85,22 +98,46 @@
 				th:value="${param.searchText}">
 			</div>
 			<button type="submit" class="btn btn-light mb-2">검색</button>
-		</form>
+		</form> -->
 		<hr>
-		<div class  = "contain">
-			<div class = "item item1">1</div>
-			<div class = "item item1">2</div>
-			<div class = "item item1">3</div>
-			<div class = "item item1">4</div>
-			<div class = "item item1">5</div>
-			<div class = "item item1">6</div>
-			<div class = "item item1">7</div>
-			<div class = "item item1">8</div>
-			<div class = "item item1">9</div>
-			<div class = "item item1">10</div>
-			<div class = "item item1">11</div>	
-			
-		</div>
+		 <div class="row">
+        <th:block th:each="item, status: ${items.getContent()}">
+            <div class="col-md-4 margin">
+                <div class="card">
+                    <a th:href="'/item/' +${item.id}" class="text-dark">
+                        <img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="400">
+                        <div class="card-body">
+                            <h4 class="card-title">[[${item.itemNm}]]</h4>
+                            <p class="card-text">출판사 </p>
+                            <p class="card-text">저자 </p>
+                            <h3 class="card-title text-danger">[[${item.price}]]원</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </th:block>
+    </div>
+     <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
+        <ul class="pagination justify-content-center">
+
+            <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
+                <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDTO.searchQuery} + '&page=' + ${items.number-1}}" aria-label='Previous' class="page-link">
+                    <span aria-hidden='true'>Previous</span>
+                </a>
+            </li>
+
+            <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${items.number eq page-1}?'active':''">
+                <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDTO.searchQuery} + '&page=' + ${page-1}}" th:inline="text" class="page-link">[[${page}]]</a>
+            </li>
+
+            <li class="page-item" th:classappend="${items.number+1 ge items.totalPages}?'disabled':''">
+                <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDTO.searchQuery} + '&page=' + ${items.number+1}}" aria-label='Next' class="page-link">
+                    <span aria-hidden='true'>Next</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
 
 	</main>
 
