@@ -23,6 +23,7 @@ import com.myhome.repository.ItemRepository;
 
 
 
+
 @Service
 @Transactional
 public class ItemService { // 상품 등록
@@ -73,10 +74,38 @@ public class ItemService { // 상품 등록
 	        }
 
 	        Item item = itemRepository.findById(itemId)
-	                .orElseThrow(EntityNotFoundException::new);
+	                .orElseThrow(EntityNotFoundException::new); // 상품 아이디 통해 상품entity를 조회 존재하지 않을 시 EntityNotFoundException
 	        ItemFormDTO itemFormDTO = ItemFormDTO.of(item);
 	        itemFormDTO.setItemImgDTOList(itemImgDTOList);
 	        return itemFormDTO;
 	    }
+	 
+	   @Transactional(readOnly = true)
+	    public Page<Item> getAdminItemPage(ItemSearchDTO itemSearchDTO, Pageable pageable){
+	        return itemRepository.getAdminItemPage(itemSearchDTO, pageable);
+	    }
+	   
+	   // 상품 및 상품 이미지 수정
+	   public Long updateItem(ItemFormDTO itemFormDTO, List<MultipartFile> itemImgFileList) throws Exception {
+		   //상품 수정
+	        Item item = itemRepository.findById(itemFormDTO.getId())
+	                .orElseThrow(EntityNotFoundException::new);
+	        item.updateItem(itemFormDTO);
+	        List<Long> itemImgIds = itemFormDTO.getItemImgIds();
+
+	        //이미지 등록
+	        for(int i=0;i<itemImgFileList.size();i++){
+	            itemImgService.updateItemImg(itemImgIds.get(i),
+	                    itemImgFileList.get(i));
+	        }
+
+	        return item.getId();
+	}
+	   
+	   
+	   
+	   
+	   
+	   
 
 }

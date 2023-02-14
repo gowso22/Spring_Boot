@@ -45,6 +45,9 @@ public class ItemFormDTO {
     // 상품 이미지 아이디를 저장하는 리스트
     private List<Long> itemImgIdList = new ArrayList<>();
     
+ // 상품 수정시에 이미지 id를 담아두는 용도의 리스트
+    private List<Long> itemImgIds = new ArrayList<>(); 
+    
     private static ModelMapper modelMapper = new ModelMapper();
     
     // 엔티티 객체와 DTO 객체의 자료형과 멤버변수의 이름이 같을 때

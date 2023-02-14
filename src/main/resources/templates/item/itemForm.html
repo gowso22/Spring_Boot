@@ -94,7 +94,7 @@
 			</div>
 			<div th:unless="${#strings.isEmpty(itemFormDTO.id)}"
 				style="text-align: center">
-				<button th:formaction="@{'/item/edit' + ${itemFormDTO.id} }"
+				<button th:formaction="@{'/item/edit/' + ${itemFormDTO.id} }"
 					type="submit" class="btn btn-primary">수정</button>
 			</div>
 			<input type="hidden" th:name="${_csrf.parameterName}"
