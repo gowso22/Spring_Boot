@@ -140,13 +140,59 @@
 				calculateToalPrice();
 			});
 		});
-
+		// 수량 조절 시 해당 상품 주문금액 조정
 		function calculateToalPrice() {
 			var count = $("#count").val();
 			var price = $("#price").val();
 			var totalPrice = price * count;
 			$("#totalPrice").html(totalPrice + '원');
 		}
+		// 장바구니 추가 버튼 클릭 메서드
+		   function addCart(){
+	        	
+	            var token = $("meta[name='_csrf']").attr("content");
+	            var header = $("meta[name='_csrf_header']").attr("content"); // csrf 관련
+				
+	            
+	            var url = "/cart"; // mapping 주소
+	            var paramData = {
+	                itemId : $("#itemId").val(),
+	                count : $("#count").val()
+	            }; // 넘길 데이터 설정
+
+	            var param = JSON.stringify(paramData);
+
+	            $.ajax({
+	                url      : url,
+	                type     : "POST",
+	                contentType : "application/json",
+	                data     : param,
+	                beforeSend : function(xhr){
+	                    /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+	                    xhr.setRequestHeader(header, token);
+	                },
+	                dataType : "json",
+	                cache   : false,
+	                success  : function(result, status){ // 성공 시
+	                    alert("상품을 장바구니에 담았습니다.");
+	                    location.href='/';
+	                },
+	                error : function(jqXHR, status, error){ // 에러 시
+
+	                    if(jqXHR.status == '401'){
+	                        alert('로그인 후 이용해주세요');
+	                        location.href='/account/login';
+	                    } else{
+	                        alert(jqXHR.responseText);
+	                    }
+
+	                }
+	            });
+	        }
+		
+		
+		
+		
 	</script>
 </body>
 

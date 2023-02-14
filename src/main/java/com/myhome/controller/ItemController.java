@@ -110,6 +110,7 @@ public class ItemController {
 	
 	@GetMapping("/items") // 상품 관리페이지로 이동
 	public String itemAdmin(ItemSearchDTO itemSearchDTO, Optional<Integer> page, Model model) {
+		
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
 		Page<MainItemDTO> items = itemService.getMainItemPage(itemSearchDTO, pageable);
 		

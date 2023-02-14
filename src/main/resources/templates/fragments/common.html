@@ -49,6 +49,9 @@
 				</a></li>
 				<li class="nav-item" th:classappend = "${menu} == 'itemAdm' ? 'active'" sec:authorize="hasRole('ROLE_ADMIN')"><a class="nav-link" href="#" th:href = "@{/items}">상품 관리
 						<span class="sr-only" th:if = "${menu} == 'itemAdm'">(current)</span>
+				</a></li>
+				<li class="nav-item" th:classappend = "${menu} == 'cartList' ? 'active'" sec:authorize="hasRole('ROLE_USER')"><a class="nav-link" href="#" th:href = "@{/cart}">장바구니
+						<span class="sr-only" th:if = "${menu} == 'cartList'">(current)</span>
 				</a></li>	
 			</ul>	
 			

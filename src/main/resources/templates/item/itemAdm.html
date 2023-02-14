@@ -49,14 +49,15 @@
 							th:alt="${item.itemNm}" height="200">
 							<div class="card-body">
 								<h4 class="card-title">[[${item.itemNm}]]</h4>
-								<!-- <span
+								<span
 									th:if="${item.itemSellStatus == T(com.myhome.constant.ItemSellStatus).SELL}"
 									class="badge badge-primary mgb-15"> 
 							판매중 </span>
 								 <span
 									th:unless="${item.itemSellStatus == T(com.myhome.constant.ItemSellStatus).SELL}"
 									class="badge btn-danger mgb-15">
-							품절 </span> -->
+							품절 </span>
+							<!-- <span th:text = "${item.itemSellStatus}"></span> -->
 								<p class="card-text">출판사</p>
 								<p class="card-text">저자</p>
 								<h3 class="card-title text-danger">[[${item.price}]]원</h3>
