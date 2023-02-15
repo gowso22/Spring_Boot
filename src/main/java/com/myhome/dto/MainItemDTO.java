@@ -23,17 +23,24 @@ public class MainItemDTO { // 메인페이지에 상품 보여줄 때 사용
 
 	    private Integer price;
 	    
+	    private String regDate;
+	    private String bookWtr;
+	    private String bookPsr;
+	    
 	    @Enumerated(EnumType.STRING)
 	    private ItemSellStatus itemSellStatus;
 
 	    @QueryProjection // Querydsl로 결과 조회 시 MainItemDTO 객체로 바로 받아오도록 활용
-	    public MainItemDTO(Long id, String itemNm, String itemDetail, String imgUrl,Integer price, ItemSellStatus itemSellStatus){
+	    public MainItemDTO(Long id, String itemNm, String itemDetail, String imgUrl,Integer price, ItemSellStatus itemSellStatus, String regDate, String bookWtr, String bookPsr){
 	        this.id = id;
 	        this.itemNm = itemNm;
 	        this.itemDetail = itemDetail;
 	        this.imgUrl = imgUrl;
 	        this.price = price;
 	        this.itemSellStatus = itemSellStatus;
+	        this.regDate = regDate;
+	        this.bookWtr = bookWtr;
+	        this.bookPsr = bookPsr;
 	    }
 	
 }

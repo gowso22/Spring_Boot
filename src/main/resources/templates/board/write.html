@@ -15,10 +15,12 @@
 		<!-- th:action="@{/board/form}" >> method 속성이 post이므로 BoardController에 @PostMapping방식으로   
 		th:object="${board}" >> get매핑해서 전달받은 board 
 		th:field = "*{title}" >>th:object로 전달방은 board 객체의 title 멤버 지정-->
-
-		<form action="#" th:action="@{/board/form}" th:object="${board}"
+		
+		<form action="#" th:action="@{/board/form(itemId=${item.id})}" th:object="${board}"
 			method="post">
 			<input type="hidden" th:field="*{id}">
+			<span  th:text = "${item.id}"></span>
+			<span th:text = "${item.itemNm}"></span>의 리뷰 작성
 			<div class="form-group">
 		
 				<label for="title">제목</label> 
@@ -44,7 +46,7 @@
 			</div>
 			<div class="text-right">
 				
-				<a class="btn btn-primary" th:href="@{/board/list}">취소</a>
+				<!-- <a class="btn btn-primary" th:href="@{/board/list}">취소</a> -->
 				<button type="submit" class="btn btn-primary">글 쓰기</button>
 			</div>
 		</form>

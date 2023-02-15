@@ -25,6 +25,8 @@ public class ItemFormDTO {
     private Long id; // 상품고유번호
 
     private String regDate;
+    private String bookWtr; // 저자
+    private String bookPsr; // 출판사
     
     @NotBlank(message = "이름을 입력해주세요")
 	private String itemNm; // 상품이름

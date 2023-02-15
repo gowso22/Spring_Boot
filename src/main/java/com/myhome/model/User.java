@@ -35,7 +35,9 @@ public class User {
 	
 	private String password;
 	private boolean enabled;
-	
+	private String addr1;
+	private String addr2;
+	private String addr3;
 	
 	public static User toUpdateUser(UserDTO userDTO) {
 		User user = new User();

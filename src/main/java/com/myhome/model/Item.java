@@ -50,6 +50,8 @@ public class Item {
     private String itemDetail; //상품 상세 설명
 
     private String regDate;
+    private String bookWtr; // 저자
+    private String bookPsr; // 출판사
     
     @Enumerated(EnumType.STRING)
     private ItemSellStatus itemSellStatus;
@@ -61,10 +63,16 @@ public class Item {
          this.stockNumber = itemFormDTO.getStockNumber();
          this.itemDetail = itemFormDTO.getItemDetail();
          this.itemSellStatus = itemFormDTO.getItemSellStatus();
+         this.bookWtr = itemFormDTO.getBookWtr();
+         this.bookPsr = itemFormDTO.getBookPsr();
 	}
     
     @OneToMany(mappedBy = "item", fetch =  FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ItemImg> itemImgs = new ArrayList<>();
 	
+    @OneToMany(mappedBy = "item", fetch =  FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+   	private List<Board> boards = new ArrayList<>();
+    
+    
 	
 }

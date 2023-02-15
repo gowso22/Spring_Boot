@@ -5,6 +5,7 @@ import java.awt.Dialog.ModalExclusionType;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -41,6 +42,19 @@ public class AccountController {
 	public String register() {
 		return "account/register";
 	}
+	
+	@GetMapping("/idChk/{username}")
+	public String idChk(@PathVariable String username, Model model) {
+		
+		if(userRepository.findByUsername(username) == null) {
+			model.addAttribute("chkMessage", username + " 은(는) 사용가능한 아이디입니다.");
+		}else {
+			model.addAttribute("chkMessage",username + " 은(는) 이미 존재하는 아이디입니다.");
+		}
+
+		return "account/register";
+	}
+	
 
 	@PostMapping("/register")
 	public String register(User user) {

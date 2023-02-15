@@ -33,6 +33,20 @@
 			</div>
 			<p th:if="${#fields.hasErrors('itemNm')}" th:errors="*{itemNm}"
 				class="fieldError">Incorrect data</p>
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text">저자</span>
+				</div>
+				<input type="text" th:field="*{bookWtr}" class="form-control"
+					placeholder="책의 저자를 입력해주세요">
+			</div>
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text">출판사</span>
+				</div>
+				<input type="text" th:field="*{bookPsr}" class="form-control"
+					placeholder="출판사명을 입력해주세요">
+			</div>
 			<BR> <BR>
 			<div class="input-group">
 				<div class="input-group-prepend">

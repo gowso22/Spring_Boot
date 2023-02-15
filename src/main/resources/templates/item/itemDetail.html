@@ -26,6 +26,8 @@
                 품절
             </span>
             <div class="h4" th:text="${item.itemNm}"></div>
+            <div>저자 - <span th:text = "${item.bookWtr}"></span></div>
+            <div>출판사 - <span th:text = "${item.bookPsr}"></span></div>
             <hr class="my-4">
 
             <div class="text-right">
@@ -69,20 +71,7 @@
     </div>
 
 <h2>Book Review</h2>
-		<!-- #lists >> 사전에 정의된 유틸리티, size 안에 addAttribute에서 키로 설정된 boards를 가져와 총건수를 조회 -->
-		<div>
-			<!-- 타임리프에선 지정한 함수를 꺼낼 때 get~ 사용하지 않음 -->
-			<!-- 총 건수 : <span th:text="${boards.totalElements}"></span> -->
-		</div>
-		<!-- 검색 form -->
-		<!-- <form class="form-inline d-flex justify-content-end" method = "GET" th:action = "@{/board/list}">
-			
-			<div class="form-group mx-sm-3 mb-2">
-				<label for="searchText" class="sr-only">검색</label> 
-				<input type="text" class="form-control">
-			</div>
-			<button type="submit" class="btn btn-light mb-2">검색</button>
-		</form> -->
+		
 		<!-- 게시판 테이블 부분 -->
 		<table class="table table-striped">
 			<thead>
@@ -90,38 +79,25 @@
 					<th scope="col">번호</th>
 					<th scope="col">제목</th>
 					<th scope="col">작성자</th>
-
+					<th scope="col">상품명</th>
 				</tr>
 			</thead>
 			<tbody>
 				<!-- 타임리프 문법으로 반복문사용  -->
-				<tr >
-					<th>1</th>
-					<td>작성자 제목</td>
-					<td>작성자이름</td>
+				<tr th:each="board : ${boards}">
+					<th th:text="${board.id}">1</th>
+					<td><a th:text="${board.title}"
+						 th:href="@{/board/form(id=${board.id})}" ></a></td>
+					<td th:text = "${board.user.username}">작성자이름</td>
+					<td th:text = "${board.item.itemNm}">도서명</td>
 				</tr>
 			</tbody>
 		</table>
 		<!-- 페이징 처리 부분 -->
-		<nav aria-label="Page navigation example">
-			<ul class="pagination justify-content-center">
-				<!-- previous 버튼 -->
-				<li class="page-item">
-					<a class="page-link" href="#"
-					tabindex="-1" aria-disabled="true">Previous</a>
-				</li>
-				<!-- pageNumber 버튼 -->
-				<li class="page-item"
-					>1</li>
-				<!-- next 버튼 -->
-				<li class="page-item">
-					<a class="page-link" href="#">Next</a>
-				</li>
-			</ul>
-		</nav>
+		
 		<!-- 글 작성은 회원가입한 유저만 사용가능하도록 설정 -->
 		<div class="text-right">
-			<a type="button" class="btn btn-primary" th:href="@{/board/write}" sec:authorize="hasRole('ROLE_USER')">리뷰
+			<a type="button" class="btn btn-primary" th:href="@{/board/write(itemId=${item.id})}" sec:authorize="hasRole('ROLE_USER')">글
 				작성</a>
 		</div>
 

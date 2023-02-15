@@ -16,29 +16,31 @@
 <title>Login</title>
 
 </head>
-<body class="text-center">
+<body>
 
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top"
 		th:replace="fragments/common :: menu('home') "></nav>
 
 
 	<!-- th:action >> csrf 토큰 전송을 위해서 -->
-	<form class="form-signin" th:action="@{/account/login}" method="post">
+	<form class = "form-signin" th:action="@{/account/login}" method="post">
 		<img class="mb-4"
 			src="https://getbootstrap.com/docs/4.5/assets/brand/bootstrap-solid.svg"
 			alt="" width="72" height="72">
 		<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 		
 		<!-- 로그아웃과 로그인 정보가 맞지 않을 때 메세지 창 부분 -->
-		<div class="alert alert-danger" role="alert" th:if="${param.error}">
+		<div class="alert alert-danger form-control" role="alert" th:if="${param.error}">
 			유저이름과 패스워드가 맞지 않음.</div>
-		<div class="alert alert-primary" role="" th:if="${param.logout}">
+		<div class="alert alert-primary form-control" role="" th:if="${param.logout}">
 			로그아웃 했습니다.</div>
 			
 		<!-- 로그인 시 username과 password 입력 부분 -->
 		<label for="inputEmail" class="sr-only">username</label> <input
 			type="text" id="username" name="username" class="form-control"
-			placeholder="username" required autofocus> <label
+			placeholder="아이디(username)을 입력해주세요." required autofocus>
+		<br>
+		<label
 			for="inputPassword" class="sr-only">Password</label> <input
 			type="password" id="inputPassword" name="password"
 			class="form-control" placeholder="Password" required>
@@ -48,9 +50,10 @@
 				Remember me
 			</label>
 		</div> -->
-		<button class="btn btn-lg btn-primary btn-block" type="submit">
+		<br>
+		<button class="btn btn-lg btn-primary btn-block form-control" type="submit">
 			로그인</button>
-		<p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
+		
 	</form>
 
 	<footer th:replace="fragments/common :: footer"></footer>

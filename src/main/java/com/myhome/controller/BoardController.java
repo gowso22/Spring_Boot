@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.myhome.model.Board;
+import com.myhome.model.Item;
 import com.myhome.repository.BoardRepository;
+import com.myhome.repository.ItemRepository;
 import com.myhome.service.BoardService;
 import com.myhome.validator.BoardValidator;
 
@@ -35,7 +37,10 @@ public class BoardController {
 	private BoardService boardService;
 	@Autowired
 	private BoardValidator boardValidator;
-
+	@Autowired
+	private ItemRepository itemRepository;
+	
+	
 	@GetMapping("/list") // 게시판 메뉴 클릭 시 처음 뿌려지는 목록 화면으로 이동
 	public String list(Model model, @PageableDefault(size = 2) org.springframework.data.domain.Pageable pageable, 
 				@RequestParam(required = false, defaultValue = "") String searchText) {
@@ -72,7 +77,11 @@ public class BoardController {
 	}
 	
 	@GetMapping("/write") // 새글 작성
-	public String write(Model model) {
+	public String write(Model model, @RequestParam(required = false) Long itemId) {
+		
+		Item item = itemRepository.findById(itemId).orElse(null);
+		
+		model.addAttribute("item", item);
 		
 		model.addAttribute("board", new Board());
 		
@@ -81,7 +90,7 @@ public class BoardController {
 	
 
 	@PostMapping("/form")
-	public String postForm(@Valid Board board, BindingResult bindingResult, Authentication authentication) {
+	public String postForm(@Valid Board board, @RequestParam(required = false) Long itemId, BindingResult bindingResult, Authentication authentication) {
 
 		boardValidator.validate(board, bindingResult); // 따로 유효성검사 클래스를 생성하여 유효성검사 구현
 
@@ -93,7 +102,7 @@ public class BoardController {
 		String username = authentication.getName();
 		
 		// 게시판글 작성한 것이 board에 save(insert 혹은 update)됨
-		boardService.save(username, board);
+		boardService.save(username, itemId,board);
 		//boardRepository.save(board);
 		
 		// redirect:board/list >> list페이지 재조회

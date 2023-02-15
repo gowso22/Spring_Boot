@@ -58,9 +58,10 @@
 									class="badge btn-danger mgb-15">
 							품절 </span>
 							<!-- <span th:text = "${item.itemSellStatus}"></span> -->
-								<p class="card-text">출판사</p>
-								<p class="card-text">저자</p>
+								<p class="card-text">출판사 - [[${item.bookPsr}]]</p>
+								<p class="card-text">저자 - [[${item.bookWtr}]]</p>
 								<h3 class="card-title text-danger">[[${item.price}]]원</h3>
+								<p class = "card-text">등록일 : [[${item.regDate}]]</p>
 							</div>
 						</a>
 					</div>

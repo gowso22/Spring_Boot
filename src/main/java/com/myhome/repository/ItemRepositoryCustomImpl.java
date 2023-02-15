@@ -49,11 +49,12 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
 		QItemImg itemImg = QItemImg.itemImg;
 
 		List<MainItemDTO> content = queryFactory
-				.select(new QMainItemDTO(item.id, item.itemNm, item.itemDetail, itemImg.imgUrl, item.price, item.itemSellStatus))
+				.select(new QMainItemDTO(item.id, item.itemNm, item.itemDetail, 
+						itemImg.imgUrl, item.price, item.itemSellStatus, item.regDate, item.bookWtr, item.bookPsr))
 				.from(itemImg).join(itemImg.item, item).where(itemImg.repimgYn.eq("Y"))
 				.where(itemNmLike(itemSearchDTO.getSearchQuery())).orderBy(item.id.desc()).offset(pageable.getOffset())
 				.limit(pageable.getPageSize()).fetch();
-
+		
 		long total = queryFactory.select(Wildcard.count).from(itemImg).join(itemImg.item, item)
 				.where(itemImg.repimgYn.eq("Y")).where(itemNmLike(itemSearchDTO.getSearchQuery())).fetchOne();
 

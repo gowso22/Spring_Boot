@@ -11,6 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.myhome.dto.ItemSearchDTO;
 import com.myhome.dto.MainItemDTO;
@@ -32,7 +33,8 @@ public class HomeController {
 	@GetMapping
 	public String index(Model model, Optional<Integer> page, ItemSearchDTO itemSearchDTO) {
 		
-		List<Notice> notices = noticeRepository.findAll();
+		List<Notice> notices = noticeRepository.findTop3ByOrderByIdDesc();
+	
 		model.addAttribute("notices", notices); // boards 값을 키-값 형태로 추가
 		
 		

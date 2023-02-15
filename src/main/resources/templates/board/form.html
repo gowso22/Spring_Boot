@@ -16,9 +16,11 @@
 		th:object="${board}" >> get매핑해서 전달받은 board 
 		th:field = "*{title}" >>th:object로 전달방은 board 객체의 title 멤버 지정-->
 
-		<form action="#" th:action="@{/board/form}" th:object="${board}"
+		<form action="#" th:action="@{/board/form(itemId=${board.item.id})}" th:object="${board}"
 			method="post">
 			<input type="hidden" th:field="*{id}">
+			<span th:text = "${board.item.id}"></span><br>
+			<span th:text = "${board.item.itemNm}"></span>의 리뷰 글
 			<div class="form-group">
 			<!-- 제목과 글 내용은 해당 글 작성자에게만 수정 권한이 주어지도록 하며 그 외의 사용자는 readonly 속성을 줘 글읽기만 가능하도록 설정 -->
 				<label for="title">제목</label> 

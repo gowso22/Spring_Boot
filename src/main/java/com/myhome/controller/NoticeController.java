@@ -35,7 +35,7 @@ public class NoticeController {
 	@GetMapping("/list")
 	public String list(Model model){
 		
-		List<Notice> notices =  noticeRepository.findAll();
+		List<Notice> notices =  noticeRepository.findByOrderByIdDesc();
 		
 		model.addAttribute("notices", notices);
 		

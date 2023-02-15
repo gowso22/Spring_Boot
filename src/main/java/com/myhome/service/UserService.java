@@ -47,6 +47,11 @@ public class UserService {
 			u.get().setUsername(user.getUsername());
 			String encodedPassword = passwordEncoder.encode(user.getPassword());
 			u.get().setPassword(encodedPassword);
+			
+			u.get().setAddr1(user.getAddr1());
+			u.get().setAddr2(user.getAddr2());
+			u.get().setAddr3(user.getAddr3());
+			
 			u.get().setEnabled(true);
 			
 			userRepository.save(u.get());
@@ -56,6 +61,11 @@ public class UserService {
 	
 	public void deleteById(long id) {
 		userRepository.deleteById(id);
+	}
+	
+	public boolean checkUsername(String username) {
+		
+		return userRepository.existsByUsername(username);
 	}
 	
 	

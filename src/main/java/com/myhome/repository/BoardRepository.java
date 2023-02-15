@@ -15,4 +15,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> { // JpaRepo
 	
 	 //Containing >> SQL에서 like처럼 사용가능하다. 
 	Page<Board> findByTitleContainingOrContentContaining(String title, String content,Pageable pageable);
+	
+	List<Board> findByItemId(Long itemId);
 }

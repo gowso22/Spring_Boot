@@ -57,7 +57,7 @@
                             <span class="input-group mt-2">
                                 <span th:id="'price_' + ${cartItem.cartItemId}"
                                       th:data-price="${cartItem.price}"
-                                      th:text="${cartItem.price} + '원'" class="align-self-center mr-2">
+                                       class="align-self-center mr-2">
                                 </span>
                                 <input type="number" name="count" th:id="'count_' + ${cartItem.cartItemId}"
                                        th:value="${cartItem.count}" min="1"
@@ -75,7 +75,7 @@
                     </span>
                 </td>
                 <td class="text-center align-middle">
-                    <a class= "btn btn-danger" th:href="@{/deleteCartItem(cartItemId=${cartItem.cartItemId})}" th:text = "${cartItem.cartItemId}">X</a>
+                    <a class= "btn btn-danger" th:href="@{/deleteCartItem(cartItemId=${cartItem.cartItemId})}">X</a>
                 </td>
             </tr>
             </tbody>
