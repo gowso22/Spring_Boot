@@ -20,7 +20,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ItemFormDTO {
+public class ItemFormDTO { // 상품 데이터 정보를 전달하는 DTO 클래스
 
     private Long id; // 상품고유번호
 
@@ -44,8 +44,9 @@ public class ItemFormDTO {
     
     // 상품 수정시 상품이미지 정보 저장 리스트
     private List<ItemImgDTO> itemImgDTOList = new ArrayList<>();
-    // 상품 이미지 아이디를 저장하는 리스트
-    private List<Long> itemImgIdList = new ArrayList<>();
+    
+//    // 상품 이미지 아이디를 저장하는 리스트
+//    private List<Long> itemImgIdList = new ArrayList<>();
     
  // 상품 수정시에 이미지 id를 담아두는 용도의 리스트
     private List<Long> itemImgIds = new ArrayList<>(); 

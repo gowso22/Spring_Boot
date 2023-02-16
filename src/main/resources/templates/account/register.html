@@ -23,6 +23,7 @@
 
 
 	<!-- th:action >> csrf 토큰 전송을 위해서 -->
+	
 	<form class="form-signin" th:action="@{/account/register}"
 		method="post">
 		<img class="mb-4"
@@ -79,14 +80,10 @@
 	<script th:inline="javascript"> 
 	
 	 $(document).ready(function(){
-		 
-		
          var chkMessage = [[${chkMessage}]];
          if(chkMessage != null){
              alert(chkMessage);
          }
-         
-        
      });
 	 
 	 function idChk(){
@@ -98,8 +95,7 @@
 		 
 		 location.href = "/account/idChk/"+username;
 		 }
-		 }
-	 
+	}
 	 function execPostCode() {
          new daum.Postcode({
              oncomplete: function(data) {

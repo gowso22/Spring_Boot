@@ -16,7 +16,7 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long>{
 	
 	
 	
-	
+	// JPQL문 작성
 	 @Query("select new com.myhome.dto.CartDetailDTO(ci.id, i.itemNm, i.price, ci.count, im.imgUrl) " +
 	            "from CartItem ci, ItemImg im " +
 	            "join ci.item i " +

@@ -33,7 +33,9 @@ public class ItemImg {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "item_id")
 	private Item item;
-
+	
+	
+	// 상품이미지수정위한 로직 추가
 	public void updateItemImg(String oriImgName, String imgName, String imgUrl) {
 		this.oriImgName = oriImgName;
 		this.imgName = imgName;
