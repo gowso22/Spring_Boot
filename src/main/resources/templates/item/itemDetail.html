@@ -16,7 +16,7 @@
 
       <div class="d-flex">
         <div class="repImgDiv">
-            <img th:src="${item.itemImgDTOList[0].imgUrl}" class = "rounded repImg" th:alt="${item.itemNm}">
+            <img th:src="${item.itemImgDTOList[0].imgUrl}" class = "rounded repImg_detail" th:alt="${item.itemNm}">
         </div>
         <div class="wd50">
             <span th:if="${item.itemSellStatus == T(com.myhome.constant.ItemSellStatus).SELL}" class="badge badge-primary mgb-15">
@@ -49,8 +49,8 @@
                 <h3 name="totalPrice" id="totalPrice" class="font-weight-bold"></h3>
             </div>
             <div th:if="${item.itemSellStatus == T(com.myhome.constant.ItemSellStatus).SELL}" class="text-right">
-                <button type="button" class="btn btn-light border border-primary btn-lg" onclick="addCart()">장바구니 담기</button>
-                <button type="button" class="btn btn-primary btn-lg" onclick="order()">주문하기</button>
+                <button sec:authorize="hasRole('ROLE_USER')" type="button" class="btn btn-light border border-primary btn-lg" onclick="addCart()">장바구니 담기</button>
+                <button type="button" class="btn btn-primary btn-lg" onclick="">주문하기</button>
             </div>
             <div th:unless="${item.itemSellStatus == T(com.myhome.constant.ItemSellStatus).SELL}" class="text-right">
                 <button type="button" class="btn btn-danger btn-lg">품절</button>

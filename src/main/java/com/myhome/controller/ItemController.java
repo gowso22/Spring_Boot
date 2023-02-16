@@ -10,29 +10,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.myhome.dto.ItemFormDTO;
 import com.myhome.dto.ItemSearchDTO;
 import com.myhome.dto.MainItemDTO;
 import com.myhome.model.Board;
-import com.myhome.model.Item;
 import com.myhome.repository.BoardRepository;
 import com.myhome.repository.ItemRepository;
 import com.myhome.service.ItemService;
-
-
-import lombok.RequiredArgsConstructor;
 
 @Controller
 public class ItemController {
@@ -86,10 +79,8 @@ public class ItemController {
 	@GetMapping("/item/{itemId}")
 	public String itemDetail(Model model, @PathVariable("itemId") Long itemId, Pageable pageable) {
 		
-		List<Board> boards = boardRepository.findByItemId(itemId);
-		// 스타트페이지의 최소값은 0페이지
-		// 엔드페이지의 최대값은 전체 끝페이지
-		
+		List<Board> boards =  boardRepository.findByItemId(itemId);
+	
 		model.addAttribute("boards", boards); // boards 값을 키-값 형태로 추가
 		
 		ItemFormDTO itemFormDTO = itemService.getItemDtl(itemId); 

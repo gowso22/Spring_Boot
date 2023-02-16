@@ -41,9 +41,9 @@
 				<li class="nav-item" th:classappend = "${menu} == 'home' ? 'active'"><a class="nav-link" href="#" th:href = "@{/}">홈
 						<span class="sr-only" th:if = "${menu} == 'home'">(current)</span>
 				</a></li>
-				<li class="nav-item" th:classappend = "${menu} == 'board' ? 'active'"><a class="nav-link" href="#" th:href = "@{/board/list}">게시판
+				<!-- <li class="nav-item" th:classappend = "${menu} == 'board' ? 'active'"><a class="nav-link" href="#" th:href = "@{/board/list}">게시판
 						<span class="sr-only" th:if = "${menu} == 'board'">(current)</span>
-				</a></li>	
+				</a></li> -->	
 				<li class="nav-item" th:classappend = "${menu} == 'itemForm' ? 'active'" sec:authorize="hasRole('ROLE_ADMIN')"><a class="nav-link" href="#" th:href = "@{/item/itemForm}">상품 등록
 						<span class="sr-only" th:if = "${menu} == 'itemForm'">(current)</span>
 				</a></li>
@@ -60,7 +60,7 @@
 				<a class = "btn btn-secondary my-2 my-sm-0" th:href = "@{/account/register}" sec:authorize="!isAuthenticated()"> 회원가입</a>
 				<!-- isAuthenticated() >> 로그인 사용자만 볼 수 있게 설정 >> 로그인시 보여지는 영역 -->
 			<form class = "form-inline my-2 my-lg-0" th:action="@{/logout}" method = "post" sec:authorize="isAuthenticated()">
-				<span class = "text-white mr-2"  sec:authentication="name" >사용자</span>
+				<span class = "text-white mr-2"  sec:authentication="name" >사용자</span><span class = "text-white">님 환영합니다!</span> &nbsp; &nbsp;
 				<span class = "text-white my-2 mr-3" sec:authentication="principal.authorities">권한</span>
 				
 				<a class = "btn btn-secondary my-2 my-sm-0 mr-2" th:href = "@{/account/edit(username=${#authentication.name})}">회원정보 수정</a>

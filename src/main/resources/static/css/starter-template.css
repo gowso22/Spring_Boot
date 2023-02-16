@@ -50,6 +50,11 @@ body {
 	width: 100px;
 }
 
+.repImg_detail {
+	height: 350px;
+	width: 100%;
+}
+
 .fs18 {
 	font-size: 18px
 }

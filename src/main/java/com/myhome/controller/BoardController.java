@@ -106,7 +106,7 @@ public class BoardController {
 		//boardRepository.save(board);
 		
 		// redirect:board/list >> list페이지 재조회
-		return "redirect:/board/list";
+		return "redirect:/item/" + itemId;
 
 	}
 	

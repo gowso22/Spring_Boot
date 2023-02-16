@@ -83,7 +83,7 @@
 		<!-- 상품 영역 -->
 		<h3>BOOK</h3>
 		<form class="form-inline d-flex justify-content-end" th:action="@{/}" method="get">
-			<input name="searchQuery" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+			<input name="searchQuery" class="form-control mr-sm-2" type="search" placeholder="상품명을 입력해주세요" aria-label="Search">
 			<button type="submit" class="btn btn-light mb-2">검색</button>
 		</form>
 		<input type="hidden" name="searchQuery" th:value="${itemSearchDTO.searchQuery}">

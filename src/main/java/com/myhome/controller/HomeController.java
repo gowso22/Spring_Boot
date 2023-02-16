@@ -38,7 +38,7 @@ public class HomeController {
 		model.addAttribute("notices", notices); // boards 값을 키-값 형태로 추가
 		
 		
-		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 2);
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 3);
 		Page<MainItemDTO> items = itemService.getMainItemPage(itemSearchDTO, pageable);
 		
 		model.addAttribute("items", items);
