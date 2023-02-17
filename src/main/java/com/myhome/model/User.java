@@ -67,6 +67,8 @@ public class User {
 	private List<Board> boards = new ArrayList<>();
 	@OneToMany(mappedBy = "user", fetch =  FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true) // 공지사항
 	private List<Notice> notices = new ArrayList<>();
+	@OneToMany(mappedBy = "user", fetch =  FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true) // 공지사항
+	private List<Cart> carts = new ArrayList<>();
 	
 	
 	
